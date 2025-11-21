@@ -17,11 +17,13 @@ export class ExpenseService {
   }
 
   async create(data: CreateExpenseDto): Promise<Expense> {
-    const e = this.repo.create({
-      ...data,
+    const expense = this.repo.create({
+      description: data.description,
+      amount: data.amount,
+      category: data.category,
       date: new Date(data.date)
-    } as any);
-    return this.repo.save(e);
+    });
+    return await this.repo.save(expense);
   }
 
   async remove(id: string): Promise<void> {
